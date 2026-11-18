@@ -3,12 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var azurePort = builder.Configuration["WEBSITES_PORT"] ?? builder.Configuration["PORT"];
+if (int.TryParse(azurePort, out var port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "IMS Modernized Insurance API", Version = "v1", Description = "Modernized from Legacy ASP.NET MVC to .NET 8 Microservice Architecture" });
+    c.SwaggerDoc("v1", new() { Title = "IMS Modernized Insurance API", Version = "v1", Description = "Modernized from Legacy ASP.NET MVC to .NET 10 Microservice Architecture" });
 });
 
 // Configure Entity Framework Core with modern connection pooling
@@ -37,12 +43,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IMS Modernized API v1"));
 }
 
-app.UseHttpsRedirection();
+app.MapGet("/healthz", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow }));
+
 app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();
-
-// Health check endpoint for container orchestrator (ECS / Kubernetes)
-app.MapGet("/healthz", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow }));
 
 app.Run();

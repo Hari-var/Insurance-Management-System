@@ -53,3 +53,4 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_325999E10F224091B623276C6CB2519C }}
+          startup-command: dotnet IMS.Modernized.WebAPI.dll
