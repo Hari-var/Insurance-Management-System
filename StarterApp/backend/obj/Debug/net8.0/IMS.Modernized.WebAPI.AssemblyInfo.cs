@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IMS.Modernized.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3652fbc9f6a9ca8607ed81ecfa157a3c46a5e0f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d61b0866d68be793d5303e471fc7a00456bfb16b")]
 [assembly: System.Reflection.AssemblyProductAttribute("IMS.Modernized.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IMS.Modernized.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
