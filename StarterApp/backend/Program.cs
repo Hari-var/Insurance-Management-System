@@ -23,12 +23,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ModernImsDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Modern CORS policy for React 18 SPA
+// Modern CORS policy for React SPA
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+        policy.SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -43,7 +43,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IMS Modernized API v1"));
 }
 
-app.MapGet("/healthz", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow }));
+app.MapGet("/healthz", () => Results.Ok(new { status = "Healthy", message = "Backend is healthy", timestamp = DateTime.UtcNow }));
+app.MapGet("/health", () => Results.Ok(new { status = "Healthy", message = "Backend is healthy", timestamp = DateTime.UtcNow }));
+app.MapGet("/api/health", () => Results.Ok(new { status = "Healthy", message = "Backend is healthy", timestamp = DateTime.UtcNow }));
 
 app.UseCors("AllowReactApp");
 app.UseAuthorization();
